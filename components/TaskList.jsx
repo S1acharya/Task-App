@@ -78,14 +78,7 @@ export default function TaskList({ tasksList }) {
         setTasks(taskJson);
     }
 
-    // event handler which fetches tasks that are due for the end of day
-    const limitTasks = async (event) => {
-        event.preventDefault();
-
-        const res = await fetch('/api/limit-tasks').then(res => res.json());
-        const taskJson = superjson.parse(res.tasks);
-        setTasks(taskJson);
-    }
+    
 
     // event handler which fetches all tasks
     const allTasks = async (event) => {
@@ -111,14 +104,6 @@ export default function TaskList({ tasksList }) {
                     className="bg-red-500 hover:bg-yellow-700 text-white font-bold py-4 px-14 rounded"
                     onClick={sortTasks}
                 >Sort Tasks</button>
-                {/* <button
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={limitTasks}
-                >Limit Tasks</button>
-                <button
-                    className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={allTasks}
-                >All Tasks</button> */}
             </div>
 
 
