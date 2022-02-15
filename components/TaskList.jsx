@@ -17,7 +17,7 @@ export default function TaskList({ tasksList }) {
     const [tasks, setTasks] = useState(tasksList);
     const [modalIsOpen, setIsOpen] = useState(false);
 
-    // state for task modal information
+    // initial state for task modal information
     const [task, setTask] = useState({
         created_at: new Date(),
         completed_at: null,
@@ -31,6 +31,7 @@ export default function TaskList({ tasksList }) {
         setIsOpen(true);
     }
 
+    //function for closing the modal
     const closeModal = (event) => {
         event.stopPropagation();
         setIsOpen(false);
@@ -38,6 +39,7 @@ export default function TaskList({ tasksList }) {
 
     // event handler for saving/submitting a task
     const submitTask = async (event) => {
+        // prevents anything default from happening
         event.preventDefault();
         setIsOpen(false);
 
@@ -45,9 +47,10 @@ export default function TaskList({ tasksList }) {
         const res = await fetch('/api/create-task', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json'  //Indicates that the request body format is JSON
             },
-            body: JSON.stringify(task)
+            body: JSON.stringify(task)  //returns in string format
+            // since , json is just a string ,the .json() method parses the JSON response into a JS object literal
         }).then(res => res.json());
 
         // update the task state data
@@ -70,7 +73,9 @@ export default function TaskList({ tasksList }) {
     const sortTasks = async (event) => {
         event.preventDefault();
 
+        //res fetches the tasks and then the res.json() method parses the JSON response into a JS object literal
         const res = await fetch('/api/sort-tasks').then(res => res.json());
+        // it parses the res that we got in string format and return the original value
         const taskJson = superjson.parse(res.tasks);
 
         // required since react doesn't re-paint
@@ -84,8 +89,11 @@ export default function TaskList({ tasksList }) {
     const allTasks = async (event) => {
         event.preventDefault();
 
+        //res fetches the tasks and then the res.json() method parses the JSON response into a JS object literal
         const res = await fetch('/api/all-tasks').then(res => res.json());
+        // it parses the res that we got in string format and return the original value
         const taskJson = superjson.parse(res.tasks);
+        
         setTasks([]);
         setTasks(taskJson);
     }

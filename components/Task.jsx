@@ -36,6 +36,7 @@ export default function Task({ taskProps }) {
         event.preventDefault();
         setIsOpen(false);
 
+        //fetches the tasks , then updates the data , finally returns in string format to get stored in db
         await fetch('/api/update-task', {
             method: 'POST',
             headers: {
@@ -43,7 +44,7 @@ export default function Task({ taskProps }) {
             },
             body: JSON.stringify(tempTask)
         });
-
+        // update the task state data
         setTask(tempTask);
     }
 

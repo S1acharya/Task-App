@@ -1,3 +1,4 @@
+// to automatically transform your Next.js pages to use superJSON
 {
     "presets": [
         "next/babel"
